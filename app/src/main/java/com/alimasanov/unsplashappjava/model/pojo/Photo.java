@@ -1,5 +1,6 @@
 package com.alimasanov.unsplashappjava.model.pojo;
 
+import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,18 +11,23 @@ public class Photo implements Serializable {
     @SerializedName("id")
     @Expose
     private String id;
+
     @SerializedName("width")
     @Expose
     private Integer width;
+
     @SerializedName("height")
     @Expose
     private Integer height;
+
     @SerializedName("urls")
     @Expose
     private Urls urls;
+
     public Urls getUrls() {
         return urls;
     }
+
     public void setUrls(Urls urls) {
         this.urls = urls;
     }
@@ -49,4 +55,10 @@ public class Photo implements Serializable {
     public void setHeight(Integer height) {
         this.height = height;
     }
+
+    public Photo(PhotoRoom photoRoom, Urls urls) {
+        this.id = photoRoom.getPhotoID();
+        this.urls = urls;
+    }
+    public Photo() {}
 }

@@ -1,19 +1,40 @@
 package com.alimasanov.unsplashappjava.model.pojo.dbEntity;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.alimasanov.unsplashappjava.model.pojo.Photo;
 
 @Entity(tableName = "UnsplashPhoto")
 public class PhotoRoom {
-    @PrimaryKey
-    @NonNull
-    String photoID;
-    @ColumnInfo(name = "SmallURL")
-    String smallURL;
-    @ColumnInfo(name = "RegularURL")
-    String regularURL;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public String photoID;
+    public String smallURL;
+    public String regularURL;
+
+//    public PhotoRoom(int id, String photoID, String smallURL, String regularURL) {
+//        this.id = id;
+//        this.photoID = photoID;
+//        this.smallURL = smallURL;
+//        this.regularURL = regularURL;
+//    }
+//
+//    @Ignore
+//    public PhotoRoom(Photo photo){
+//        photoID = photo.getId();
+//        smallURL = photo.getUrls().getSmall();
+//        regularURL = photo.getUrls().getRegular();
+//    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPhotoID() {
         return photoID;

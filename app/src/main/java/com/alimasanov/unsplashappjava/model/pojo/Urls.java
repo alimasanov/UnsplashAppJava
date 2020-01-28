@@ -1,5 +1,6 @@
 package com.alimasanov.unsplashappjava.model.pojo;
 
+import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,15 +11,19 @@ public class Urls implements Serializable {
     @SerializedName("raw")
     @Expose
     private String raw;
+
     @SerializedName("full")
     @Expose
     private String full;
+
     @SerializedName("regular")
     @Expose
     private String regular;
+
     @SerializedName("small")
     @Expose
     private String small;
+
     @SerializedName("thumb")
     @Expose
     private String thumb;
@@ -53,5 +58,18 @@ public class Urls implements Serializable {
 
     public void setThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    public String getRaw() {
+        return raw;
+    }
+
+    public void setRaw(String raw) {
+        this.raw = raw;
+    }
+
+    public Urls(PhotoRoom photoRoom) {
+        this.regular = photoRoom.getRegularURL();
+        this.small = photoRoom.getSmallURL();
     }
 }
