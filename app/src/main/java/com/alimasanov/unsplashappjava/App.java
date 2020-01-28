@@ -7,10 +7,11 @@ import androidx.room.Room;
 import com.alimasanov.unsplashappjava.database.UnsplashDatabase;
 
 public class App extends Application {
+    private static App instance;
     private UnsplashDatabase db;
-    private App instance;
 
-    public App getInstance() {
+
+    public static App getInstance() {
         return instance;
     }
 
@@ -25,6 +26,6 @@ public class App extends Application {
         db = Room.databaseBuilder(
                 instance,
                 UnsplashDatabase.class,
-                "db").build();
+                "db").allowMainThreadQueries().build();
     }
 }

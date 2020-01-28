@@ -9,24 +9,24 @@ import com.alimasanov.unsplashappjava.model.pojo.Photo;
 @Entity(tableName = "UnsplashPhoto")
 public class PhotoRoom {
     @PrimaryKey(autoGenerate = true)
-    public int id;
-    public String photoID;
-    public String smallURL;
-    public String regularURL;
+    private int id;
+    private String photoID;
+    private String smallURL;
+    private String regularURL;
 
-//    public PhotoRoom(int id, String photoID, String smallURL, String regularURL) {
-//        this.id = id;
-//        this.photoID = photoID;
-//        this.smallURL = smallURL;
-//        this.regularURL = regularURL;
-//    }
-//
-//    @Ignore
-//    public PhotoRoom(Photo photo){
-//        photoID = photo.getId();
-//        smallURL = photo.getUrls().getSmall();
-//        regularURL = photo.getUrls().getRegular();
-//    }
+    public PhotoRoom(int id, String photoID, String smallURL, String regularURL) {
+        this.id = id;
+        this.photoID = photoID;
+        this.smallURL = smallURL;
+        this.regularURL = regularURL;
+    }
+
+    @Ignore
+    public PhotoRoom(Photo photo){
+        photoID = photo.getId();
+        smallURL = photo.getUrls().getSmall();
+        regularURL = photo.getUrls().getRegular();
+    }
 
     public int getId() {
         return id;
