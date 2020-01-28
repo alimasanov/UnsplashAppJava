@@ -1,10 +1,11 @@
-package com.alimasanov.unsplashappjava;
+package com.alimasanov.unsplashappjava.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.alimasanov.unsplashappjava.R;
 import com.alimasanov.unsplashappjava.model.pojo.Photo;
 import com.squareup.picasso.Picasso;
 
