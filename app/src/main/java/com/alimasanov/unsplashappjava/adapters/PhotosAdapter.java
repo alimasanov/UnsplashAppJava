@@ -63,9 +63,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         });
 
         holder.cardView.setOnClickListener(v -> {
-            Intent intent = new Intent(app.getInstance(), FullScreenActivity.class);
+            Intent intent = new Intent(v.getContext(), FullScreenActivity.class);
             intent.putExtra("photo", photo);
-            app.getInstance().startActivity(intent);
+            v.getContext().startActivity(intent);
         });
     }
 
