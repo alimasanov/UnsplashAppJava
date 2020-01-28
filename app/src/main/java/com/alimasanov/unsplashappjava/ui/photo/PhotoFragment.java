@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -36,6 +37,10 @@ public class PhotoFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_photo, container, false);
         rv = root.findViewById(R.id.photo_rv);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        photoViewModel.getErr().observe(Objects.requireNonNull(getActivity()), err ->{
+            Toast.makeText(getActivity(), "Фото не загружены", Toast.LENGTH_SHORT).show();
+        });
 
         photoViewModel.getMutableLiveData().observe(Objects.requireNonNull(getActivity()), photos -> {
             PhotosAdapter adapter = new PhotosAdapter(photos);
