@@ -1,6 +1,5 @@
 package com.alimasanov.unsplashappjava.adapters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alimasanov.unsplashappjava.App;
-import com.alimasanov.unsplashappjava.FullScreenActivity;
+import com.alimasanov.unsplashappjava.ui.FullScreenActivity;
 import com.alimasanov.unsplashappjava.R;
-import com.alimasanov.unsplashappjava.database.UnsplashDAO;
 import com.alimasanov.unsplashappjava.database.UnsplashDatabase;
 import com.alimasanov.unsplashappjava.model.pojo.Photo;
 import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
@@ -43,25 +41,22 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull PhotosAdapter.ViewHolder holder, int position) {
         final Photo photo = photoList.get(position);
-        final App app = new App();
         Picasso.get()
                 .load(photo.getUrls().getThumb())
                 .into(holder.imageView);
 
+        //Добавление фото в избранное
         holder.cardView.setOnLongClickListener(v -> {
-            UnsplashDatabase db = app.getDb();
 
-            PhotoRoom room = new PhotoRoom();
-            room.setPhotoID(photo.getId());
-            room.setRegularURL(photo.getUrls().getRegular());
-            room.setSmallURL(photo.getUrls().getSmall());
 
-            UnsplashDAO dao = db.unsplashDAO();
-            dao.insertAll(room);
-            Toast.makeText(app.getInstance(), "Фото добавлено в избранное", Toast.LENGTH_SHORT).show();
-        return true;
+            UnsplashDatabase db = App.getInstance().getDb();
+            PhotoRoom room = new PhotoRoom(photo);
+            db.getUnsplashDAO().insertAll(room);
+            Toast.makeText(App.getInstance(), "Фото добавлено в избранное", Toast.LENGTH_SHORT).show();
+            return true;
         });
 
+        //Открытие фото в отдельнм окне
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullScreenActivity.class);
             intent.putExtra("photo", photo);
