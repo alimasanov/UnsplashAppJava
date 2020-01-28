@@ -7,16 +7,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HeaderInterceptor implements Interceptor {
-    private String clientID;
-    public HeaderInterceptor(String clientID){
-        this.clientID = clientID;
+    private String clientId;
+    public HeaderInterceptor(String clientId) {
+        this.clientId = clientId;
     }
-
-    @Override
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    @Override public Response intercept(Interceptor.Chain chain) throws IOException {
         Request request = chain.request();
         request = request.newBuilder()
-                .addHeader("Authorization", "Client-ID" + clientID)
+                .addHeader("Authorization", "Client-ID " + clientId)
                 .build();
         return chain.proceed(request);
     }
