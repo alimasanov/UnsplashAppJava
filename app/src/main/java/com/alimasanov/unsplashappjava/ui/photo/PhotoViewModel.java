@@ -24,10 +24,19 @@ public class PhotoViewModel extends ViewModel {
             .create(NetworkEndpoints.class);
 
     private MutableLiveData<List<Photo>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> err = new MutableLiveData<>();
+    private Boolean b;
     List<Photo> list = new ArrayList<>();
 
+    public MutableLiveData<Boolean> getErr() {
+        err.setValue(b);
+        return err;
+    }
+
     public MutableLiveData<List<Photo>> getMutableLiveData() {
-        initData();
+        for (int i = 0; i < 1; i++) {
+            initData();
+        }
         return mutableLiveData;
     }
 
@@ -37,11 +46,10 @@ public class PhotoViewModel extends ViewModel {
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
                 if (response.body() != null) {
                     list.addAll(response.body());
+                    mutableLiveData.setValue(list);
+                } else {
+                    b = false;
                 }
-                if(list.size() < 50){
-                    initData();
-                }
-                mutableLiveData.setValue(list);
 
             }
             @Override
