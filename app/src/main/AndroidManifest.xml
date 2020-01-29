@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.FullScreenActivity"
+            android:name=".ui.fullscreen.FullScreenActivity"
             android:theme="@style/NoBarTheme" />
         <activity
             android:name=".MainActivity"
