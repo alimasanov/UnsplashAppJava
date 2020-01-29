@@ -52,7 +52,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
         //Открытие фото в отдельнм окне
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullScreenActivity.class);
-            intent.putExtra("photoID", photoRoom.getId());
+            intent.putExtra("photoID", photoRoom.getPhotoID());
             v.getContext().startActivity(intent);
         });
 
