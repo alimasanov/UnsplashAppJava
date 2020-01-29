@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alimasanov.unsplashappjava.App;
 import com.alimasanov.unsplashappjava.R;
 import com.alimasanov.unsplashappjava.database.UnsplashDatabase;
-import com.alimasanov.unsplashappjava.model.pojo.Photo;
-import com.alimasanov.unsplashappjava.model.pojo.Urls;
 import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
 import com.alimasanov.unsplashappjava.ui.fullscreen.FullScreenActivity;
 import com.squareup.picasso.Picasso;
