@@ -42,9 +42,6 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PhotoRoom photoRoom = list.get(position);
-        Urls urls = new Urls(photoRoom);
-        Photo photo = new Photo(photoRoom, urls);
-
         Picasso.get()
                 .load(photoRoom.getSmallURL())
                 .into(holder.imageView);
