@@ -29,11 +29,6 @@ public class FavoriteViewModel extends ViewModel {
     private void initData() {
         App.getInstance().getDb().getUnsplashDAO().getPhotoList()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<PhotoRoom>>() {
-                    @Override
-                    public void accept(List<PhotoRoom> list) throws Exception {
-                        listPhoto.setValue(list);
-                    }
-                });
+                .subscribe(list -> listPhoto.setValue(list));
     }
 }

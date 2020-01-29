@@ -1,5 +1,6 @@
 package com.alimasanov.unsplashappjava.ui.photo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,10 @@ public class PhotoFragment extends Fragment {
                     swipeContainer.setRefreshing(false);
                     Toast.makeText(getActivity(), R.string.photo_updated, Toast.LENGTH_SHORT).show();
         }));
+        swipeContainer.setColorSchemeColors(Color.RED,
+                Color.GREEN,
+                Color.MAGENTA,
+                Color.BLUE);
 
         //уведомление об ошибке при загрузке данных с сервера
         photoViewModel.getErr().observe(Objects.requireNonNull(getActivity()), err ->{
