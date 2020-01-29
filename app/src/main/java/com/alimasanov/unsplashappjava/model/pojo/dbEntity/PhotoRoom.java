@@ -14,6 +14,9 @@ public class PhotoRoom {
     private String smallURL;
     private String regularURL;
 
+    public PhotoRoom() {
+    }
+
     public PhotoRoom(int id, String photoID, String smallURL, String regularURL) {
         this.id = id;
         this.photoID = photoID;
