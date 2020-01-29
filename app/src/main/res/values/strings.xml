@@ -9,4 +9,5 @@
     <string name="photo_added">Фото добавлено в избранное</string>
     <string name="photo_contains">Фото уже есть в избранном</string>
     <string name="photo_updated">Список фото обновлен</string>
+    <string name="photo_add_to_fav">Добавить в избранное</string>
 </resources>
