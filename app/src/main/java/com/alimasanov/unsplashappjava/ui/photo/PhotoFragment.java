@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alimasanov.unsplashappjava.App;
 import com.alimasanov.unsplashappjava.R;
@@ -29,6 +30,8 @@ public class PhotoFragment extends Fragment {
     private PhotoViewModel photoViewModel;
     private View root;
     private RecyclerView rv;
+    private SwipeRefreshLayout swipeContainer;
+    private PhotosAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,13 +40,28 @@ public class PhotoFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_photo, container, false);
         rv = root.findViewById(R.id.photo_rv);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        swipeContainer = root.findViewById(R.id.swipe_container);
 
+        //обновление данных при свайпе вниз
+        swipeContainer.setOnRefreshListener(() -> photoViewModel
+                .getUpdatedMutableLiveData()
+                .observe(Objects.requireNonNull(getActivity()), photos -> {
+                    adapter = new PhotosAdapter(photos);
+                    rv.setAdapter(adapter);
+                    swipeContainer.setRefreshing(false);
+                    Toast.makeText(getActivity(), R.string.photo_updated, Toast.LENGTH_SHORT).show();
+        }));
+
+        //ошибка при загрузке данных с сервера
         photoViewModel.getErr().observe(Objects.requireNonNull(getActivity()), err ->{
-            Toast.makeText(getActivity(), "Фото не загружены", Toast.LENGTH_SHORT).show();
+            if(!err) {
+                Toast.makeText(getActivity(), R.string.err_load, Toast.LENGTH_SHORT).show();
+            }
         });
 
+        //инициализация списка фото
         photoViewModel.getMutableLiveData().observe(Objects.requireNonNull(getActivity()), photos -> {
-            PhotosAdapter adapter = new PhotosAdapter(photos);
+            adapter = new PhotosAdapter(photos);
             rv.setAdapter(adapter);
         });
 

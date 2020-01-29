@@ -24,8 +24,9 @@ public class PhotoViewModel extends ViewModel {
             .create(NetworkEndpoints.class);
 
     private MutableLiveData<List<Photo>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Photo>> updatedMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> err = new MutableLiveData<>();
-    private Boolean b;
+    private Boolean b = true;
     List<Photo> list = new ArrayList<>();
 
     public MutableLiveData<Boolean> getErr() {
@@ -40,24 +41,45 @@ public class PhotoViewModel extends ViewModel {
         return mutableLiveData;
     }
 
-    private void initData() {
+    public MutableLiveData<List<Photo>> getUpdatedMutableLiveData() {
+        list.clear();
+        for (int i = 0; i < 1; i++) {
+            updateData();
+        }
+        return updatedMutableLiveData;
+    }
+
+    //инициализация списка фото
+    void initData() {
         networkEndpoints.getRandomPhotos(10).enqueue(new Callback<List<Photo>>() {
             @Override
             public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
                 if (response.body() != null) {
                     list.addAll(response.body());
                     mutableLiveData.setValue(list);
-                } else {
-                    b = false;
                 }
-
             }
             @Override
             public void onFailure(Call<List<Photo>> call, Throwable t) {
-
+                b = false;
             }
         });
-//        return mutableLiveData;
-//        return list;
+    }
+
+    //обновление данных
+    void updateData() {
+        networkEndpoints.getRandomPhotos(10).enqueue(new Callback<List<Photo>>() {
+            @Override
+            public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
+                if (response.body() != null) {
+                    list.addAll(response.body());
+                    updatedMutableLiveData.setValue(list);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Photo>> call, Throwable t) {
+                b = false;
+            }
+        });
     }
 }
