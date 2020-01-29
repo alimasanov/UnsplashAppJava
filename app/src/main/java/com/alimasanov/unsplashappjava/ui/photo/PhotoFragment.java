@@ -52,7 +52,7 @@ public class PhotoFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.photo_updated, Toast.LENGTH_SHORT).show();
         }));
 
-        //ошибка при загрузке данных с сервера
+        //уведомление об ошибке при загрузке данных с сервера
         photoViewModel.getErr().observe(Objects.requireNonNull(getActivity()), err ->{
             if(!err) {
                 Toast.makeText(getActivity(), R.string.err_load, Toast.LENGTH_SHORT).show();
