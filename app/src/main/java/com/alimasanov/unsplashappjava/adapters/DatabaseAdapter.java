@@ -17,7 +17,7 @@ import com.alimasanov.unsplashappjava.database.UnsplashDatabase;
 import com.alimasanov.unsplashappjava.model.pojo.Photo;
 import com.alimasanov.unsplashappjava.model.pojo.Urls;
 import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
-import com.alimasanov.unsplashappjava.ui.FullScreenActivity;
+import com.alimasanov.unsplashappjava.ui.fullscreen.FullScreenActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
         //Открытие фото в отдельнм окне
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullScreenActivity.class);
-            intent.putExtra("photo", photo);
+            intent.putExtra("photoID", photoRoom.getId());
             v.getContext().startActivity(intent);
         });
 
@@ -60,7 +60,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
         holder.cardView.setOnLongClickListener(v -> {
             UnsplashDatabase db = App.getInstance().getDb();
             db.getUnsplashDAO().delete(photoRoom);
-            Toast.makeText(App.getInstance(), "ото удалено из избранного", Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.getInstance(), R.string.photo_deleted, Toast.LENGTH_SHORT).show();
             return false;
         });
     }

@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alimasanov.unsplashappjava.App;
-import com.alimasanov.unsplashappjava.ui.FullScreenActivity;
+import com.alimasanov.unsplashappjava.ui.fullscreen.FullScreenActivity;
 import com.alimasanov.unsplashappjava.R;
 import com.alimasanov.unsplashappjava.database.UnsplashDatabase;
 import com.alimasanov.unsplashappjava.model.pojo.Photo;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder> {
 
-    private final List<Photo> photoList;
+    private List<Photo> photoList;
 
     public PhotosAdapter(List<Photo> photoList) {
         this.photoList = photoList;
@@ -52,14 +52,14 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
             UnsplashDatabase db = App.getInstance().getDb();
             PhotoRoom room = new PhotoRoom(photo);
             db.getUnsplashDAO().insertAll(room);
-            Toast.makeText(App.getInstance(), "Фото добавлено в избранное", Toast.LENGTH_SHORT).show();
+            Toast.makeText(App.getInstance(), R.string.photo_added, Toast.LENGTH_SHORT).show();
             return true;
         });
 
         //Открытие фото в отдельнм окне
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullScreenActivity.class);
-            intent.putExtra("photo", photo);
+            intent.putExtra("photoID", photo.getId());
             v.getContext().startActivity(intent);
         });
     }
@@ -77,5 +77,13 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
             imageView = view.findViewById(R.id.card_image);
             cardView = view.findViewById(R.id.card_item);
         }
+    }
+
+    public void clear() {
+        photoList.clear();
+    }
+
+    public void update(List<Photo> photoList){
+        this.photoList = photoList;
     }
 }
