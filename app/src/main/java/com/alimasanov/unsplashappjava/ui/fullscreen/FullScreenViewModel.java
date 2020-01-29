@@ -1,12 +1,21 @@
 package com.alimasanov.unsplashappjava.ui.fullscreen;
 
+import android.widget.Toast;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.alimasanov.unsplashappjava.App;
+import com.alimasanov.unsplashappjava.R;
+import com.alimasanov.unsplashappjava.database.UnsplashDatabase;
 import com.alimasanov.unsplashappjava.model.pojo.Photo;
+import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
 import com.alimasanov.unsplashappjava.server.NetworkEndpoints;
 import com.alimasanov.unsplashappjava.server.UnsplashClient;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +28,13 @@ public class FullScreenViewModel extends ViewModel {
             .getUnsplashClient()
             .create(NetworkEndpoints.class);
     private MutableLiveData<Photo> photoMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<Boolean> containsPhotoMut = new MutableLiveData<>();
+
+    public MutableLiveData<Boolean> getContainsPhotoMut() {
+        containsPhotoMut.setValue(true);
+        containsPhoto();
+        return containsPhotoMut;
+    }
 
     public MutableLiveData<Photo> getPhoto() {
         loadPhoto();
@@ -38,6 +54,25 @@ public class FullScreenViewModel extends ViewModel {
 
             }
         });
+    }
+
+    private void containsPhoto() {
+        UnsplashDatabase db = App.getInstance().getDb();
+        PhotoRoom room = new PhotoRoom(photo);
+        db.getUnsplashDAO().getPhotoById(room.getPhotoID())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<PhotoRoom>() {
+                    @Override
+                    public void onSuccess(PhotoRoom photoRoom) {
+                        containsPhotoMut.setValue(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        containsPhotoMut.setValue(false);
+                    }
+                });
     }
 
     public void setPhotoID(String photoID){
