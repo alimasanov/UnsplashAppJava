@@ -1,6 +1,5 @@
 package com.alimasanov.unsplashappjava.database;
 
-import androidx.annotation.NonNull;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -24,8 +23,7 @@ public interface UnsplashDAO {
 
     @Query("SELECT * FROM UnsplashPhoto")
     Flowable<List<PhotoRoom>> getPhotoList();
-//
-//    @Query("SELECT photoID FROM UnsplashPhoto WHERE photoID = :photoID")
-//    @NonNull
-//    List<PhotoRoom> getPhoto(String photoID);
+
+    @Query("SELECT * FROM UnsplashPhoto WHERE photoID = :photoID")
+    Flowable<PhotoRoom> getPhotoById(String photoID);
 }
