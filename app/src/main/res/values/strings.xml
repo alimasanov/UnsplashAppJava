@@ -3,4 +3,10 @@
     <string name="title_photo">Photo</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_info">Info</string>
+
+    <string name="err_load">Ошибка при загрузке фото</string>
+    <string name="photo_deleted">Фото удалено из избранного</string>
+    <string name="photo_added">Фото добавлено в избранное</string>
+    <string name="photo_contains">Фото уже есть в избранном</string>
+    <string name="photo_updated">Список фото обновлен</string>
 </resources>
