@@ -71,7 +71,10 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
 
                         @Override
                         public void onError(Throwable e) {
-                            db.getUnsplashDAO().insertAll(room);
+                            Runnable run = () -> db.getUnsplashDAO().insertAll(room);
+
+                            Thread t = new Thread(run);
+                            t.start();
                             Toast.makeText(App.getInstance(), R.string.photo_added, Toast.LENGTH_SHORT).show();
                         }
                     });
