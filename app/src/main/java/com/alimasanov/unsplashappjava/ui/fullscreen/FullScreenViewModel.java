@@ -14,6 +14,7 @@ import com.alimasanov.unsplashappjava.model.pojo.dbEntity.PhotoRoom;
 import com.alimasanov.unsplashappjava.server.NetworkEndpoints;
 import com.alimasanov.unsplashappjava.server.UnsplashClient;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -61,7 +62,7 @@ public class FullScreenViewModel extends ViewModel {
         UnsplashDatabase db = App.getInstance().getDb();
 
         db.getUnsplashDAO().getPhotoById(photoID)
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<PhotoRoom>() {
                     @Override

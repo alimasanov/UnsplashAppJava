@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alimasanov.unsplashappjava.R;
 import com.squareup.picasso.Picasso;
@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 public class FullScreenActivity extends AppCompatActivity {
 
     private ImageView imageView;
-    private Button button;
+    private TextView textView;
     private FullScreenViewModel fullScreenViewModel;
 
     @Override
@@ -23,7 +23,7 @@ public class FullScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_screen);
 
         imageView = findViewById(R.id.full_image);
-        button = findViewById(R.id.full_image_but);
+        textView = findViewById(R.id.full_image_text);
         fullScreenViewModel = ViewModelProviders.of(this).get(FullScreenViewModel.class);
 
 
@@ -33,11 +33,11 @@ public class FullScreenActivity extends AppCompatActivity {
         //проверка на наличие фото в бд
         fullScreenViewModel.getContainsPhotoMut().observe(this, contains -> {
             if (contains){
-                button.setBackgroundColor(Color.GREEN);
-                button.setText(R.string.photo_contains);
+                textView.setBackgroundColor(Color.GREEN);
+                textView.setText(R.string.photo_contains);
             } else if (!contains){
-                button.setBackgroundColor(Color.GRAY);
-                button.setText(R.string.photo_add_to_fav);
+                textView.setBackgroundColor(Color.GRAY);
+                textView.setText(R.string.photo_not_contains);
             }
         });
 

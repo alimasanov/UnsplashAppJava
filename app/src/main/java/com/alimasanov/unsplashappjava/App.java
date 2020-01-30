@@ -26,6 +26,6 @@ public class App extends Application {
         db = Room.databaseBuilder(
                 instance,
                 UnsplashDatabase.class,
-                "db").allowMainThreadQueries().build();
+                "db").build();
     }
 }
