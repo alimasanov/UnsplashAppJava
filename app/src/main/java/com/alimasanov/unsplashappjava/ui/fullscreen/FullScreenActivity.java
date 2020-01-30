@@ -26,19 +26,20 @@ public class FullScreenActivity extends AppCompatActivity {
         button = findViewById(R.id.full_image_but);
         fullScreenViewModel = ViewModelProviders.of(this).get(FullScreenViewModel.class);
 
+
+        //отправить id фото во viewmodel
+        fullScreenViewModel.setPhotoID(getIntent().getStringExtra("photoID"));
+
         //проверка на наличие фото в бд
         fullScreenViewModel.getContainsPhotoMut().observe(this, contains -> {
             if (contains){
                 button.setBackgroundColor(Color.GREEN);
                 button.setText(R.string.photo_contains);
-            } else {
+            } else if (!contains){
                 button.setBackgroundColor(Color.GRAY);
                 button.setText(R.string.photo_add_to_fav);
             }
         });
-
-        //отправить id фото во viewmodel
-        fullScreenViewModel.setPhotoID(getIntent().getStringExtra("photoID"));
 
         //получение фото
         fullScreenViewModel.getPhoto().observe(this, photo -> {

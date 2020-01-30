@@ -2,6 +2,7 @@ package com.alimasanov.unsplashappjava.ui.fullscreen;
 
 import android.widget.Toast;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -58,9 +59,9 @@ public class FullScreenViewModel extends ViewModel {
 
     private void containsPhoto() {
         UnsplashDatabase db = App.getInstance().getDb();
-        PhotoRoom room = new PhotoRoom(photo);
-        db.getUnsplashDAO().getPhotoById(room.getPhotoID())
-                .subscribeOn(Schedulers.io())
+
+        db.getUnsplashDAO().getPhotoById(photoID)
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<PhotoRoom>() {
                     @Override
