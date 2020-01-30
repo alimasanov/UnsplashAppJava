@@ -16,13 +16,15 @@ import com.alimasanov.unsplashappjava.R;
 
 public class InfoFragment extends Fragment {
 
-    private InfoViewModel infoViewModel;
+    private TextView textInfo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        infoViewModel =
-                ViewModelProviders.of(this).get(InfoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_info, container, false);
+        textInfo = root.findViewById(R.id.text_info);
+
+        textInfo.setText(R.string.text_info);
+
         return root;
     }
 }
